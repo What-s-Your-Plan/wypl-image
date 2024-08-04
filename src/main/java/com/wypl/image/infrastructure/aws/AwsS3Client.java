@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.wypl.image.infrastructure.ImageUploadable;
-import com.wypl.utils.ImageRemoveUtils;
+import com.wypl.image.utils.ImageRemoveUtils;
 
 import lombok.RequiredArgsConstructor;
 
