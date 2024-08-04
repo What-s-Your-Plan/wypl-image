@@ -38,3 +38,6 @@ out/
 
 ### macOS ###
 .DS_Store
+
+### magick ###
+/magick
