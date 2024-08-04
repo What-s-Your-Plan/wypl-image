@@ -1,11 +1,14 @@
-package com.wypl.image;
+package com.wypl.image.service;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class MagickImageConvert implements ImageConvertible {
 
 	private static final int SUCCESS_EXIT_NUMBER = 0;
+
+	@Value("${working.directory.absolute-path}")
+	private String workingAbsolutePath;
 
 	/**
 	 *	이미지를 `avif`확장자로 변환합니다.<p>
@@ -30,34 +36,37 @@ public class MagickImageConvert implements ImageConvertible {
 	 */
 	@Override
 	public File imageConvert(final MultipartFile file) {
-		Path workingDir = prepareOriginalImage(file);
-		Path avifImagePath = prepareAvifImage(file, workingDir);
-		imageConvertProcess(file, avifImagePath);
+		String uuid = UUID.randomUUID().toString();
+		Path originalImagePath = prepareOriginalImage(uuid, file);
+		Path avifImagePath = prepareAvifImage(uuid);
+		imageConvertProcess(originalImagePath, avifImagePath);
 		return avifImagePath.toFile();
 	}
 
-	private Path prepareOriginalImage(final MultipartFile file) {
+	private Path prepareOriginalImage(final String uuid, final MultipartFile file) {
 		try {
-			Path workingDirectory = Files.createTempDirectory("upload");
+			Path workingDirectory = Paths.get(workingAbsolutePath, uuid);
+			Files.createDirectories(workingDirectory);
 			Path originalImagePath = workingDirectory.resolve(Objects.requireNonNull(file.getOriginalFilename()));
 			Files.copy(file.getInputStream(), originalImagePath);
-			return workingDirectory;
+			return originalImagePath;
 		} catch (IOException e) {
 			throw new RuntimeException("내부 서버 오류입니다.");    // TODO: 예외 처리 수정 필요
 		}
 	}
 
-	private Path prepareAvifImage(final MultipartFile file, final Path workingDirectory) {
-		String avifImageName = Objects.requireNonNull(file.getOriginalFilename())
-				.replaceAll("\\.[^.]+$", "") + ".avif";
+	private Path prepareAvifImage(final String uuid) {
+		Path workingDirectory = Paths.get(workingAbsolutePath, uuid);
+		String avifImageName = uuid + ".avif";
 		return workingDirectory.resolve(avifImageName);
 	}
 
-	private void imageConvertProcess(MultipartFile file, Path avifImagePath) {
+	private void imageConvertProcess(Path originalImagePath, Path avifImagePath) {
 		ProcessBuilder processBuilder = new ProcessBuilder(
-				"magick", file.getOriginalFilename(),
+				"magick",
+				originalImagePath.toAbsolutePath().toString(),
 				"-quality", "50",
-				avifImagePath.toString()
+				avifImagePath.toAbsolutePath().toString()
 		);
 		try {
 			Process process = processBuilder.start();

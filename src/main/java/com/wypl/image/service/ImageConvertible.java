@@ -1,4 +1,4 @@
-package com.wypl.image;
+package com.wypl.image.service;
 
 import java.io.File;
 
