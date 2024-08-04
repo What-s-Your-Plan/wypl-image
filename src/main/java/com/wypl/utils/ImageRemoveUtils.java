@@ -19,6 +19,13 @@ public class ImageRemoveUtils {
 		throw new CallConstructorException();
 	}
 
+	/**
+	 *	해당 파일이 있는 위치의 파일과 폴더를 삭제합니다.
+	 *
+	 * @param file    삭제 요청하는 파일
+	 *
+	 * @throws GlobalException 파일 삭제에 실패하면 예외를 던진다.
+	 */
 	public static void removeImages(final File file) {
 		try {
 			Path directoryPath = Paths.get(file.getAbsolutePath().replace(file.getName(), ""));
