@@ -50,3 +50,51 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+/* Jacoco Start */
+tasks.withType(JacocoReport) {
+    reports {
+        html.required = true
+        html.outputLocation = file("reports/jacoco/index.xml")
+    }
+
+    classDirectories.setFrom(
+            files(classDirectories.files.collect { file ->
+                fileTree(file) {
+                    exclude(
+                            "**/*Application*",
+                            "**/*Request*",
+                            "**/*Response*",
+                            "**/common/**",
+                            "**/data/**",
+                            "**/exception/**",
+                    )
+                }
+            })
+    )
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            element = "CLASS"
+
+            limit {
+                counter = "LINE"
+                value = "COVEREDRATIO"
+                minimum = 0.00.toBigDecimal()
+            }
+
+            excludes = [
+                    "**/*Application*",
+                    "**/*Request*",
+                    "**/*Response*",
+                    "**/common/**",
+                    "**/data/**",
+                    "**/exception/**",
+            ]
+        }
+    }
+}
+/* Jacoco End */

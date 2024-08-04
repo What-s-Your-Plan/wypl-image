@@ -44,3 +44,6 @@ out/
 
 ### Properties ###
 **/main/resources/security/*.yml
+
+### Jacoco ###
+/reports
