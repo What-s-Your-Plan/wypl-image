@@ -7,6 +7,8 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wypl.image.global.exception.ImageErrorCode;
+import com.wypl.image.global.exception.ImageException;
 import com.wypl.image.infrastructure.aws.AwsS3Client;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,16 @@ public class ImageService {
 	private final MagickImageConvert imageConvert;
 	private final AwsS3Client imageUploadClient;
 
+	/**
+	 * 사용자가 요청한 이미지를 업로드한 뒤 업로드된 이미지의 URL 을 반환한다.<p>
+	 *
+	 * </br>
+	 *    {@code ImageException}<p>
+	 *	1. {@link #validateImageExtension(MultipartFile)}	이미지의 확장자가 잘못되었으면 예외를 던진다.
+	 *
+	 * @param file    사용자가 업로드 요청한 이미지 파일
+	 * @return 업로드한 이미지의 URL
+	 */
 	public String saveImage(final MultipartFile file) {
 		validateImageExtension(file);
 		File avifImage = imageConvert.imageConvert(file);
@@ -30,7 +42,7 @@ public class ImageService {
 						originalFileName.lastIndexOf("."))
 				.toLowerCase();
 		if (ImageExtension.notContains(extension)) {
-			throw new RuntimeException("올바르지 않은 이미지 확장자입니다.");
+			throw new ImageException(ImageErrorCode.NOT_ALLOWED_EXTENSION);
 		}
 	}
 
