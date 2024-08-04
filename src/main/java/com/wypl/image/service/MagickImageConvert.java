@@ -63,10 +63,10 @@ public class MagickImageConvert implements ImageConvertible {
 
 	private void imageConvertProcess(Path originalImagePath, Path avifImagePath) {
 		ProcessBuilder processBuilder = new ProcessBuilder(
-				"magick",
-				originalImagePath.toAbsolutePath().toString(),
+				"convert",
+				originalImagePath.toString(),
 				"-quality", "50",
-				avifImagePath.toAbsolutePath().toString()
+				avifImagePath.toString()
 		);
 		try {
 			Process process = processBuilder.start();
