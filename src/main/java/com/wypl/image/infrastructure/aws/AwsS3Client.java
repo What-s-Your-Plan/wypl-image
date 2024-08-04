@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.wypl.image.infrastructure.ImageUploadable;
+import com.wypl.utils.ImageRemoveUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +23,8 @@ public class AwsS3Client implements ImageUploadable {
 	@Override
 	public String imageUpload(final File file) {
 		amazonS3Client.putObject(bucket, file.getName(), file);
-		return amazonS3Client.getUrl(bucket, file.getName()).toString();
+		String uploadImageUrl = amazonS3Client.getUrl(bucket, file.getName()).toString();
+		ImageRemoveUtils.removeImages(file);
+		return uploadImageUrl;
 	}
 }
