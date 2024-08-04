@@ -1,4 +1,4 @@
-package com.wypl.utils;
+package com.wypl.image.utils;
 
 import java.io.File;
 import java.io.IOException;
