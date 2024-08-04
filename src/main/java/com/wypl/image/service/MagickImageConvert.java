@@ -12,6 +12,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wypl.image.exception.GlobalErrorCode;
+import com.wypl.image.exception.GlobalException;
+import com.wypl.image.exception.ImageMagickErrorCode;
+import com.wypl.image.exception.ImageMagickException;
+
 @Component
 public class MagickImageConvert implements ImageConvertible {
 
@@ -51,7 +56,7 @@ public class MagickImageConvert implements ImageConvertible {
 			Files.copy(file.getInputStream(), originalImagePath);
 			return originalImagePath;
 		} catch (IOException e) {
-			throw new RuntimeException("내부 서버 오류입니다.");    // TODO: 예외 처리 수정 필요
+			throw new ImageMagickException(ImageMagickErrorCode.ORIGINAL_IMAGE_PREPARE_ERROR);
 		}
 	}
 
@@ -71,12 +76,12 @@ public class MagickImageConvert implements ImageConvertible {
 		try {
 			Process process = processBuilder.start();
 			if (process.waitFor() != SUCCESS_EXIT_NUMBER) {
-				throw new RuntimeException("이미지 처리에 실패하였습니다.");
+				throw new ImageMagickException(ImageMagickErrorCode.INVALID_FILE_PATH);
 			}
 		} catch (IOException e) {
-			throw new RuntimeException("magick 명령어가 잘못되었습니다.");
+			throw new ImageMagickException(ImageMagickErrorCode.NOT_EXISTED_COMMAND);
 		} catch (InterruptedException e) {
-			throw new RuntimeException("부모 프로세스가 죽었습니다.");
+			throw new GlobalException(GlobalErrorCode.PARENT_PROCESS_DEAD); // 작업 처리중 부모 프로세스가 죽는 경우
 		}
 	}
 }
