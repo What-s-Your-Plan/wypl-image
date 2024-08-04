@@ -6,13 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.springframework.stereotype.Component;
-
 import com.wypl.image.global.exception.CallConstructorException;
 import com.wypl.image.global.exception.GlobalErrorCode;
 import com.wypl.image.global.exception.GlobalException;
 
-@Component
 public class ImageRemoveUtils {
 
 	private ImageRemoveUtils() {
