@@ -98,3 +98,38 @@ tasks.jacocoTestCoverageVerification {
     }
 }
 /* Jacoco End */
+
+/* API Docs Start */
+openapi3 {
+    server = "http://127.0.0.1:8080"
+    title = "What's Your Plan! Image Server API Docs"
+    description = "What's Your Plan! Image Server API Description"
+    version = "$version"
+    format = "yaml"
+}
+
+tasks.register('copyOasToSwagger', Copy) {
+    dependsOn tasks.named("openapi3")
+
+    delete file("src/main/resources/static/swagger-ui/openapi3.yaml")
+    from("build/api-spec/openapi3.yaml")
+    into("src/main/resources/static/swagger-ui/")
+
+//    doLast {
+//        def securitySchemesContent = """
+//          securitySchemes:
+//            APIKey:
+//              type: apiKey
+//              name: Authorization
+//              in: header
+//          security:
+//            - APIKey: [ ]  # Apply the security scheme here
+//        """
+//        file("src/main/resources/static/swagger-ui/openapi3.yaml").append(securitySchemesContent)
+//    }
+}
+
+tasks.build {
+    dependsOn tasks.named("copyOasToSwagger")
+}
+/* API Docs End */
