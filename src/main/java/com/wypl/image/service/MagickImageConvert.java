@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.wypl.image.exception.GlobalErrorCode;
-import com.wypl.image.exception.GlobalException;
-import com.wypl.image.exception.ImageMagickErrorCode;
-import com.wypl.image.exception.ImageMagickException;
+import com.wypl.image.global.exception.GlobalErrorCode;
+import com.wypl.image.global.exception.GlobalException;
+import com.wypl.image.global.exception.ImageMagickErrorCode;
+import com.wypl.image.global.exception.ImageMagickException;
 
 @Component
 public class MagickImageConvert implements ImageConvertible {
