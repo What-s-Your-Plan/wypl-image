@@ -20,7 +20,7 @@ public class ImageService {
 	private final AwsS3Client imageUploadClient;
 
 	/**
-	 * 사용자가 요청한 이미지를 업로드한 뒤 업로드된 이미지의 URL 을 반환한다.<p>
+	 * 사용자가 요청한 이미지를 업로드한 뒤 업로드된 이미지의 {@code URL}을 반환한다.<p>
 	 *
 	 * </br>
 	 *    {@code ImageException}<p>
