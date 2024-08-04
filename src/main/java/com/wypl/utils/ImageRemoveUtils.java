@@ -8,11 +8,15 @@ import java.nio.file.Paths;
 
 import org.springframework.stereotype.Component;
 
+import com.wypl.image.global.exception.CallConstructorException;
+import com.wypl.image.global.exception.GlobalErrorCode;
+import com.wypl.image.global.exception.GlobalException;
+
 @Component
 public class ImageRemoveUtils {
 
 	private ImageRemoveUtils() {
-		// TODO: 해당 클래스는 유틸이므로 생성자가 호출되면 안됩니다.
+		throw new CallConstructorException();
 	}
 
 	public static void removeImages(final File file) {
@@ -20,7 +24,7 @@ public class ImageRemoveUtils {
 			Path directoryPath = Paths.get(file.getAbsolutePath().replace(file.getName(), ""));
 			deleteDirectoryRecursively(directoryPath);
 		} catch (IOException e) {
-			throw new RuntimeException("파일 삭제에 실패하였습니다.");
+			throw new GlobalException(GlobalErrorCode.FAILURE_DELETE_FILE);
 		}
 	}
 
