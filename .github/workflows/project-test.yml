@@ -2,7 +2,9 @@ name: 🧪 Run Spring Boot Tests on Pull Request
 
 on:
   pull_request:
-    branch: [ main, dev ]
+    branches:
+      - main
+      - dev
 
 jobs:
   project-test:
