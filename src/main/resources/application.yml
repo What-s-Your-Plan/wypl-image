@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: wypl-image
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      enabled: true
+  config:
+    import:
+      - security/application-aws.yml
+      - security/application-disk.yml

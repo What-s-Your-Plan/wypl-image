@@ -1,0 +1,36 @@
+package com.wypl.image.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.wypl.image.data.response.UploadImageResponse;
+import com.wypl.image.global.common.Message;
+import com.wypl.image.service.ImageService;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@RestController
+public class ImageController {
+
+	private final ImageService imageService;
+
+	@PostMapping("/v2/images")
+	public ResponseEntity<Message<UploadImageResponse>> uploadImage(
+			// TODO: 인증 기능 추가 필요
+			@RequestParam("image") MultipartFile file
+	) {
+		String savedImageUrl = imageService.saveImage(file);
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(
+						Message.withBody(
+								"사진 업로드가 정상적으로 처리되었습니다.",
+								new UploadImageResponse(savedImageUrl)
+						)
+				);
+	}
+}
