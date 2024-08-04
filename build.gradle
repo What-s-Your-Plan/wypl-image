@@ -55,6 +55,7 @@ tasks.named('test') {
 tasks.withType(JacocoReport) {
     reports {
         html.required = true
+        xml.required = true
         html.outputLocation = file("reports/jacoco/index.xml")
     }
 
