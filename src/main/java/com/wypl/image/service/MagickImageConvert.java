@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,14 +15,17 @@ import com.wypl.image.global.exception.GlobalErrorCode;
 import com.wypl.image.global.exception.GlobalException;
 import com.wypl.image.global.exception.ImageMagickErrorCode;
 import com.wypl.image.global.exception.ImageMagickException;
+import com.wypl.image.properties.DiskProperties;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Component
 public class MagickImageConvert implements ImageConvertible {
 
 	private static final int SUCCESS_EXIT_NUMBER = 0;
 
-	@Value("${working.directory.absolute-path}")
-	private String workingAbsolutePath;
+	private final DiskProperties diskProperties;
 
 	/**
 	 *	이미지를 `avif`확장자로 변환합니다.<p>
@@ -50,7 +52,7 @@ public class MagickImageConvert implements ImageConvertible {
 
 	private Path prepareOriginalImage(final String uuid, final MultipartFile file) {
 		try {
-			Path workingDirectory = Paths.get(workingAbsolutePath, uuid);
+			Path workingDirectory = Paths.get(diskProperties.getAbsolutePath(), uuid);
 			Files.createDirectories(workingDirectory);
 			Path originalImagePath = workingDirectory.resolve(Objects.requireNonNull(file.getOriginalFilename()));
 			Files.copy(file.getInputStream(), originalImagePath);
@@ -61,7 +63,7 @@ public class MagickImageConvert implements ImageConvertible {
 	}
 
 	private Path prepareAvifImage(final String uuid) {
-		Path workingDirectory = Paths.get(workingAbsolutePath, uuid);
+		Path workingDirectory = Paths.get(diskProperties.getAbsolutePath(), uuid);
 		String avifImageName = uuid + ".avif";
 		return workingDirectory.resolve(avifImageName);
 	}

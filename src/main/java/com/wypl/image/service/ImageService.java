@@ -20,8 +20,8 @@ public class ImageService {
 	private final AwsS3Client imageUploadClient;
 
 	/**
-	 * 사용자가 요청한 이미지를 업로드한 뒤 업로드된 이미지의 {@code URL}을 반환한다.<p>
-	 * </br>
+	 *	사용자가 요청한 이미지를 업로드한 뒤 업로드된 이미지의 {@code URL}을 반환한다.<p>
+	 * 	</br>
 	 *    {@code ImageException}<p>
 	 *	1. {@link #validateImageExtension(MultipartFile)}	이미지의 확장자가 잘못되었으면 예외를 던진다.
 	 *

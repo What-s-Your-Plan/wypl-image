@@ -1,4 +1,4 @@
-package com.wypl.utils;
+package com.wypl.image.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,15 +6,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.springframework.stereotype.Component;
-
 import com.wypl.image.global.exception.CallConstructorException;
 import com.wypl.image.global.exception.GlobalErrorCode;
 import com.wypl.image.global.exception.GlobalException;
 
-@Component
+import lombok.Generated;
+
 public class ImageRemoveUtils {
 
+	@Generated
 	private ImageRemoveUtils() {
 		throw new CallConstructorException();
 	}

@@ -44,3 +44,10 @@ out/
 
 ### Properties ###
 **/main/resources/security/*.yml
+
+### API Docs ###
+**/main/resources/static/swagger-ui/*.yaml
+
+### Jacoco ###
+/reports
+/src/test/magick
