@@ -10,8 +10,11 @@ import com.wypl.image.global.exception.CallConstructorException;
 import com.wypl.image.global.exception.GlobalErrorCode;
 import com.wypl.image.global.exception.GlobalException;
 
+import lombok.Generated;
+
 public class ImageRemoveUtils {
 
+	@Generated
 	private ImageRemoveUtils() {
 		throw new CallConstructorException();
 	}
