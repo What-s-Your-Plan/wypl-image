@@ -3,7 +3,7 @@ package com.wypl.image.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +22,7 @@ public class ImageController {
 	@PostMapping("/v2/images")
 	public ResponseEntity<Message<UploadImageResponse>> uploadImage(
 			// TODO: 인증 기능 추가 필요
-			@RequestParam("image") MultipartFile file
+			@RequestPart("image") MultipartFile file
 	) {
 		String savedImageUrl = imageService.saveImage(file);
 		return ResponseEntity.status(HttpStatus.CREATED)
