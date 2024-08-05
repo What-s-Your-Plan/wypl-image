@@ -47,3 +47,4 @@ out/
 
 ### Jacoco ###
 /reports
+/src/test/magick
