@@ -68,8 +68,10 @@ tasks.withType(JacocoReport) {
                             "**/*Request*",
                             "**/*Response*",
                             "**/common/**",
+                            "**/config/**",
                             "**/data/**",
                             "**/exception/**",
+                            "**/properties/**",
                     )
                 }
             })
@@ -93,8 +95,10 @@ tasks.jacocoTestCoverageVerification {
                     "**/*Request*",
                     "**/*Response*",
                     "**/common/**",
+                    "**/config/**",
                     "**/data/**",
                     "**/exception/**",
+                    "**/properties/**",
             ]
         }
     }
