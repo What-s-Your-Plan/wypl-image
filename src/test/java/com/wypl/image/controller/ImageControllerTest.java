@@ -5,7 +5,6 @@ import static org.mockito.BDDMockito.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.operation.preprocess.Preprocessors;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -16,6 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.wypl.image.common.ControllerTest;
 import com.wypl.image.fixture.ImageFixture;
 import com.wypl.image.service.ImageService;
@@ -40,7 +40,7 @@ class ImageControllerTest extends ControllerTest {
 
 		/* Then */
 		actions.andDo(MockMvcResultHandlers.print())
-				.andDo(MockMvcRestDocumentation.document("file/v2/images",
+				.andDo(MockMvcRestDocumentationWrapper.document("file/v2/images",
 						Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
 						Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
 						RequestDocumentation.requestParts(
