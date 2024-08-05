@@ -50,6 +50,7 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 /* Jacoco Start */
@@ -110,7 +111,7 @@ openapi3 {
     server = "http://127.0.0.1:8080"
     title = "What's Your Plan! Image Server API Docs"
     description = "What's Your Plan! Image Server API Description"
-    version = "$version"
+    version = "0.0.1"
     format = "yaml"
 }
 
@@ -120,19 +121,6 @@ tasks.register('copyOasToSwagger', Copy) {
     delete file("src/main/resources/static/swagger-ui/openapi3.yaml")
     from("build/api-spec/openapi3.yaml")
     into("src/main/resources/static/swagger-ui/")
-
-//    doLast {
-//        def securitySchemesContent = """
-//          securitySchemes:
-//            APIKey:
-//              type: apiKey
-//              name: Authorization
-//              in: header
-//          security:
-//            - APIKey: [ ]  # Apply the security scheme here
-//        """
-//        file("src/main/resources/static/swagger-ui/openapi3.yaml").append(securitySchemesContent)
-//    }
 }
 
 tasks.build {
