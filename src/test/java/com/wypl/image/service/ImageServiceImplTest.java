@@ -5,6 +5,8 @@ import static org.mockito.BDDMockito.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wypl.image.data.request.DeleteImageRequest;
 import com.wypl.image.fixture.ImageFixture;
 import com.wypl.image.global.exception.ImageErrorCode;
 import com.wypl.image.global.exception.ImageException;
@@ -63,5 +66,20 @@ class ImageServiceImplTest {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@DisplayName("이미지를 삭제한다.")
+	@Test
+	void removeImagesTest() {
+		/* Given */
+		DeleteImageRequest request = new DeleteImageRequest(new ArrayList<>(List.of(
+				"https://bucket.region.s3.aws.com/image1.avif",
+				"https://bucket.region.s3.aws.com/image2.avif"
+		)));
+		doNothing().when(client).filesRemove(any());
+
+		/* When & Then */
+		Assertions.assertThatCode(() -> imageService.removeImages(request))
+				.doesNotThrowAnyException();
 	}
 }
