@@ -35,6 +35,14 @@ public class AwsS3Client implements CloudStorageProvider {
 		return uploadImageUrl;
 	}
 
+	/**
+	 *	파일의 이름을 가지고 AWS S3에서 파일을 삭제합니다.<p>
+	 *	</br>
+	 *    {@link  com.amazonaws.services.s3.model.AmazonS3Exception}<p>
+	 *	1. 파일의 이름이 공백이거나 `NULL`이면 예외를 던진다.
+	 *
+	 * @param fileNames AWS S3에서 삭제할 파일 이름
+	 */
 	@Override
 	public void filesRemove(List<String> fileNames) {
 		List<DeleteObjectsRequest.KeyVersion> list = fileNames.stream()
@@ -42,6 +50,7 @@ public class AwsS3Client implements CloudStorageProvider {
 				.toList();
 		DeleteObjectsRequest deleteObjectRequest = new DeleteObjectsRequest(awsS3Properties.getBucket());
 		deleteObjectRequest.setKeys(list);
+
 		amazonS3Client.deleteObjects(deleteObjectRequest);
 	}
 }
