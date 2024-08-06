@@ -41,6 +41,6 @@ public class ImageController {
 			@RequestBody DeleteImageRequest request
 	) {
 		imageService.removeImages(request);
-		return ResponseEntity.ok(ResponseMessage.onlyMessage(""));
+		return ResponseEntity.ok(ResponseMessage.onlyMessage("사진 삭제가 정상적으로 처리되었습니다."));
 	}
 }
