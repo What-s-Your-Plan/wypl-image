@@ -24,10 +24,10 @@ import com.wypl.image.global.exception.ImageException;
 import com.wypl.image.infrastructure.aws.AwsS3Client;
 
 @ExtendWith(MockitoExtension.class)
-class ImageServiceTest {
+class ImageServiceImplTest {
 
 	@InjectMocks
-	private ImageService imageService;
+	private ImageServiceImpl imageService;
 
 	@Mock
 	private ImageMagickConvert convert;
@@ -42,7 +42,7 @@ class ImageServiceTest {
 		/* Given */
 		MockMultipartFile file = fixture.getMockMultipartFile();
 		given(convert.imageConvert(any(MultipartFile.class))).willReturn(new File("MOCK_FILE"));
-		given(client.imageUpload(any(File.class))).willReturn("MOCK_IMAGE_URL");
+		given(client.fileUpload(any(File.class))).willReturn("MOCK_IMAGE_URL");
 
 		/* When & Then */
 		Assertions.assertThatCode(() -> imageService.saveImage(file))

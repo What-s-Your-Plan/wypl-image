@@ -57,7 +57,7 @@ class AwsS3ClientTest {
 				new URL("https://s3.aws.com/image.avif"));
 
 		/* When & Then */
-		assertThatCode(() -> awsS3Client.imageUpload(uploadImage))
+		assertThatCode(() -> awsS3Client.fileUpload(uploadImage))
 				.doesNotThrowAnyException();
 	}
 }

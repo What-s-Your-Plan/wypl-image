@@ -18,12 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.wypl.image.common.ControllerTest;
 import com.wypl.image.fixture.ImageFixture;
-import com.wypl.image.service.ImageService;
+import com.wypl.image.service.ImageServiceImpl;
 
 class ImageControllerTest extends ControllerTest {
 
 	@MockBean
-	private ImageService imageService;
+	private ImageServiceImpl imageService;
 
 	@DisplayName("이미지 업로드, POST - file/v2/images")
 	@Test
