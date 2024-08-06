@@ -8,7 +8,7 @@ plugins {
 
 val projectVersion = "0.0.1"
 group = "com.wypl"
-version = "${projectVersion}"
+version = projectVersion
 
 java {
     toolchain {
@@ -75,6 +75,7 @@ tasks.withType<JacocoReport> {
             fileTree(it) {
                 exclude(
                     "**/*Application*",
+                    "**/*Configuration*",
                     "**/*Request*",
                     "**/*Response*",
                     "**/common/**",
@@ -102,6 +103,7 @@ tasks.jacocoTestCoverageVerification {
 
             excludes = listOf(
                 "**/*Application*",
+                "**/*Configuration*",
                 "**/*Request*",
                 "**/*Response*",
                 "**/common/**",
@@ -120,7 +122,7 @@ openapi3 {
     this.setServer("http://127.0.0.1:8080")
     title = "What's Your Plan! Image Server API Docs"
     description = "What's Your Plan! Image Server API Description"
-    version = "${projectVersion}"
+    version = projectVersion
     format = "yaml"
 }
 

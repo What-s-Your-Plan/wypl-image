@@ -75,4 +75,7 @@ sh ./script/quick-starter.sh
 
 ## 이미지 업로드 프로세스
 
-<img src="./docs/readme-image/image-upload-sequence.png" alt="image-upload-sequence" width="800">
+|                                         Sequence Diagram                                          |
+|:-------------------------------------------------------------------------------------------------:|
+| <img src="./docs/readme-image/image-upload-sequence.png" alt="image-upload-sequence" width="800"> |
+|       <img src="./docs/readme-image/sequence-diagram.jpeg" alt="image-upload" width="800">        |

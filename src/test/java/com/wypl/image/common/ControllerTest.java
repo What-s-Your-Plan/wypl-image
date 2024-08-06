@@ -6,6 +6,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wypl.image.controller.ImageController;
 
 @AutoConfigureRestDocs
@@ -17,4 +19,15 @@ public abstract class ControllerTest {
 
 	@Autowired
 	protected MockMvc mockMvc;
+
+	@Autowired
+	protected ObjectMapper objectMapper;
+
+	protected String convertToJson(Object object) {
+		try {
+			return objectMapper.writeValueAsString(object);
+		} catch (JsonProcessingException e) {
+			throw new AssertionError("올바르지 않는 JSON 형식입니다.");
+		}
+	}
 }

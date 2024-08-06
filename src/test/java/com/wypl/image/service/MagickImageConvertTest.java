@@ -22,7 +22,7 @@ import com.wypl.image.utils.ImageRemoveUtils;
 class MagickImageConvertTest {
 
 	@InjectMocks
-	private MagickImageConvert magickImageConvert;
+	private ImageMagickConvert imageMagickConvert;
 
 	@Mock
 	private DiskProperties properties;
@@ -40,7 +40,7 @@ class MagickImageConvertTest {
 	void imageTest(ImageFixture fixture) {
 		/* When & Then */
 		Assertions.assertThatCode(
-						() -> avifImageFile = magickImageConvert.imageConvert(fixture.getMockMultipartFile()))
+						() -> avifImageFile = imageMagickConvert.imageConvert(fixture.getMockMultipartFile()))
 				.doesNotThrowAnyException();
 
 		/* After */

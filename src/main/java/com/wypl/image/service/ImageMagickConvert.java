@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
-public class MagickImageConvert implements ImageConvertible {
+public class ImageMagickConvert implements ImageConvertible {
 
 	private static final int SUCCESS_EXIT_NUMBER = 0;
 
@@ -31,11 +31,11 @@ public class MagickImageConvert implements ImageConvertible {
 	 *	이미지를 `avif`확장자로 변환합니다.<p>
 	 *	하위 메서드에서 예외를 던지는 경우는 다음과 같습니다.<p>
 	 * </br>
-	 *    {@code IOException}<p>
+	 *    {@link  IOException}<p>
 	 *	1. {@link #prepareOriginalImage} 원본 이미지 사전작업중 임시 디렉토리를 생성하지 못하거나 파일을 디스크로 복사하지 못하면 예외를 던진다.<p>
 	 *	2. {@link #imageConvertProcess} magick 명령어가 잘못되면 예외를 던진다.<p>
 	 * </br>
-	 *    {@code InterruptedException}<p>
+	 *    {@link  InterruptedException}<p>
 	 *	1. {@link #imageConvertProcess} 작업중인 부모 프로세스가 죽어서 멈추면 예외를 던진다.
 	 *
 	 * @param file 변환하는 원본 이미지

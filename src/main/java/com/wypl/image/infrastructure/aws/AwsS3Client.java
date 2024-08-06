@@ -1,11 +1,13 @@
 package com.wypl.image.infrastructure.aws;
 
 import java.io.File;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.wypl.image.infrastructure.ImageUploadable;
+import com.amazonaws.services.s3.model.DeleteObjectsRequest;
+import com.wypl.image.infrastructure.CloudStorageProvider;
 import com.wypl.image.properties.AwsS3Properties;
 import com.wypl.image.utils.ImageRemoveUtils;
 
@@ -13,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
-public class AwsS3Client implements ImageUploadable {
+public class AwsS3Client implements CloudStorageProvider {
 
 	private final AmazonS3Client amazonS3Client;
 
@@ -26,10 +28,29 @@ public class AwsS3Client implements ImageUploadable {
 	 * @return AWS S3에 업로드된 파일의 경로
 	 */
 	@Override
-	public String imageUpload(final File file) {
+	public String fileUpload(final File file) {
 		amazonS3Client.putObject(awsS3Properties.getBucket(), file.getName(), file);
 		String uploadImageUrl = amazonS3Client.getUrl(awsS3Properties.getBucket(), file.getName()).toString();
 		ImageRemoveUtils.removeImages(file);
 		return uploadImageUrl;
+	}
+
+	/**
+	 *	파일의 이름을 가지고 AWS S3에서 파일을 삭제합니다.<p>
+	 *	</br>
+	 *    {@link  com.amazonaws.services.s3.model.AmazonS3Exception}<p>
+	 *	1. 파일의 이름이 공백이거나 `NULL`이면 예외를 던진다.
+	 *
+	 * @param fileNames AWS S3에서 삭제할 파일 이름
+	 */
+	@Override
+	public void filesRemove(List<String> fileNames) {
+		List<DeleteObjectsRequest.KeyVersion> list = fileNames.stream()
+				.map(DeleteObjectsRequest.KeyVersion::new)
+				.toList();
+		DeleteObjectsRequest deleteObjectRequest = new DeleteObjectsRequest(awsS3Properties.getBucket());
+		deleteObjectRequest.setKeys(list);
+
+		amazonS3Client.deleteObjects(deleteObjectRequest);
 	}
 }
