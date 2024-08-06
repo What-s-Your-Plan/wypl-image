@@ -30,7 +30,7 @@ class ImageServiceTest {
 	private ImageService imageService;
 
 	@Mock
-	private MagickImageConvert convert;
+	private ImageMagickConvert convert;
 
 	@Mock
 	private AwsS3Client client;

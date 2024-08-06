@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wypl.image.data.response.UploadImageResponse;
-import com.wypl.image.global.common.Message;
+import com.wypl.image.global.common.ResponseMessage;
 import com.wypl.image.service.ImageService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,17 +22,14 @@ public class ImageController {
 	private final ImageService imageService;
 
 	@PostMapping("/v2/images")
-	public ResponseEntity<Message<UploadImageResponse>> uploadImage(
+	public ResponseEntity<ResponseMessage<UploadImageResponse>> uploadImage(
 			// TODO: 인증 기능 추가 필요
 			@RequestPart("image") MultipartFile file
 	) {
 		String savedImageUrl = imageService.saveImage(file);
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(
-						Message.withBody(
-								"사진 업로드가 정상적으로 처리되었습니다.",
-								new UploadImageResponse(savedImageUrl)
-						)
-				);
+				.body(ResponseMessage.withBody(
+						"사진 업로드가 정상적으로 처리되었습니다.",
+						new UploadImageResponse(savedImageUrl)));
 	}
 }

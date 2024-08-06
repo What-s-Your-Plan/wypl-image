@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
-public class MagickImageConvert implements ImageConvertible {
+public class ImageMagickConvert implements ImageConvertible {
 
 	private static final int SUCCESS_EXIT_NUMBER = 0;
 

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class Message<T> {
+public class ResponseMessage<T> {
 	@JsonProperty("message")
 	private String message;
 
@@ -14,33 +14,33 @@ public class Message<T> {
 	@JsonProperty("body")
 	private T body;
 
-	public Message() {
+	public ResponseMessage() {
 		this.message = null;
 		this.body = null;
 	}
 
 	//메세지만 있는 경우
-	public Message(final String message) {
+	public ResponseMessage(final String message) {
 		this.message = message;
 		this.body = null;
 	}
 
 	//메세지와 데이터 모두 있는 경우
-	public Message(final String message, T body) {
+	public ResponseMessage(final String message, T body) {
 		this.message = message;
 		this.body = body;
 	}
 
-	public static Message<Void> onlyMessage(
+	public static ResponseMessage<Void> onlyMessage(
 			final String message
 	) {
-		return new Message<>(message);
+		return new ResponseMessage<>(message);
 	}
 
-	public static <T> Message<T> withBody(
+	public static <T> ResponseMessage<T> withBody(
 			final String message,
 			final T body
 	) {
-		return new Message<>(message, body);
+		return new ResponseMessage<>(message, body);
 	}
 }

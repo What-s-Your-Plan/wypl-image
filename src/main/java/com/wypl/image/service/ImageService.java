@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class ImageService {
-	private final MagickImageConvert imageConvert;
+	private final ImageMagickConvert imageConvert;
 	private final AwsS3Client imageUploadClient;
 
 	/**
