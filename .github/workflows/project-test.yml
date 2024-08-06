@@ -1,0 +1,30 @@
+name: 🧪 Run Spring Boot Tests on Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  project-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🖼️ Install ImageMagick
+        run: sudo apt-get install -y imagemagick
+
+      - name: 🏗️ Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 🎟️ Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: 🧪 Spring Boot Test
+        run: ./gradlew clean test

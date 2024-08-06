@@ -1,0 +1,7 @@
+cloud:
+  aws:
+    s3:
+      bucket: test-bucket
+    credentials:
+      secret-key: test-secret-key
+      access-key: test-access-key
