@@ -48,8 +48,10 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	/**
-	 * 삭제 요청한 이미지의 URL 목록을 가지고 삭제한다.
-	 *
+	 *	삭제 요청한 이미지의 URL 목록을 가지고 삭제한다.<p>
+	 *	</br>
+	 *    {@link IndexOutOfBoundsException}<p>
+	 *	1. 올바르지 않은 파일의 이름인 경우 예외를 던진다.
 	 *
 	 * @param request 삭제 요청한 이미지의 URL 목록
 	 */
